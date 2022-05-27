@@ -1,6 +1,7 @@
 import * as React from "react"
 import Row from "./row"
 import SelectTicketsToBuy from "./selectTicketsToBuy"
+import VenueBody from "./venueBody"
 
 interface VenueProps {
   rows: number
@@ -14,24 +15,10 @@ interface VenueInitialState {
 const Venue = ({ rows, seatsPerRow }: VenueProps): React.ReactElement => {
   const [state, setState] = React.useState(Venue.initialState)
 
-  const rowComponents = Array.from(Array(rows).keys()).map(
-    (row: number): React.ReactElement => {
-      return (
-        <Row
-          key={`venue-row-${row}`}
-          rowNumber={row}
-          seatsPerRow={seatsPerRow}
-        />
-      )
-    }
-  )
-
   return (
     <>
       <SelectTicketsToBuy seatsPerRow={seatsPerRow} setState={setState} state={state} />
-      <table className="table" cellPadding={20}>
-        {rowComponents}
-      </table>
+      <VenueBody rows={rows} seatsPerRow={seatsPerRow} />
     </>
   )
 }
