@@ -1,5 +1,6 @@
 import * as React from "react"
 import Row from "./row"
+import SelectTicketsToBuy from "./selectTicketsToBuy"
 
 interface VenueProps {
   rows: number
@@ -25,29 +26,9 @@ const Venue = ({ rows, seatsPerRow }: VenueProps): React.ReactElement => {
     }
   )
 
-  const options = Array.from(Array(seatsPerRow).keys()).map(
-    (optionValue: number): React.ReactElement => (
-      <option key={`number-of-tickets-${optionValue}`} value={optionValue + 1} selected={state.numberOfTickets == optionValue + 1}>
-        {optionValue + 1}
-      </option>
-    )
-  )
-
-  const numberOfTicketsChanged = (inputElement) => {
-    setState({
-      ...state,
-      numberOfTickets: parseInt(inputElement.target.value),
-    })
-  }
-
   return (
     <>
-      <div>
-        <span className="header">How many tickets would you like?</span>
-        <span className="select">
-          <select onChange={numberOfTicketsChanged}>{options}</select>
-        </span>
-      </div>
+      <SelectTicketsToBuy seatsPerRow={seatsPerRow} setState={setState} state={state} />
       <table className="table" cellPadding={20}>
         {rowComponents}
       </table>
@@ -60,3 +41,4 @@ Venue.initialState = {
 }
 
 export default Venue
+export { VenueInitialState }
