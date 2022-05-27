@@ -5,8 +5,8 @@ interface SeatProps {
   initialState: string
 }
 
-const Seat = (props: SeatProps): React.ReactElement => {
-  const [state, setState] = React.useState(props.initialState)
+const Seat = ({ seatNumber, initialState }: SeatProps): React.ReactElement => {
+  const [state, setState] = React.useState(initialState)
 
   const changeState = (): void => {
     if (state === "held") {
@@ -31,7 +31,7 @@ const Seat = (props: SeatProps): React.ReactElement => {
       <span
         className={`${cssClass} ${stateDisplayClass()}`}
         onClick={changeState}>
-        {props.seatNumber + 1}
+        {seatNumber + 1}
       </span>
     </td>
   )
