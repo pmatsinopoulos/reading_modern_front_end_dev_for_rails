@@ -17,14 +17,22 @@ const Venue = ({ rows, seatsPerRow }: VenueProps): React.ReactElement => {
 
   return (
     <>
-      <SelectTicketsToBuy seatsPerRow={seatsPerRow} setState={setState} state={state} />
-      <VenueBody rows={rows} seatsPerRow={seatsPerRow} />
+      <SelectTicketsToBuy
+        seatsPerRow={seatsPerRow}
+        setState={setState}
+        state={state}
+      />
+      <VenueBody
+        numberOfTickets={state.numberOfTickets}
+        rows={rows}
+        seatsPerRow={seatsPerRow}
+      />
     </>
   )
 }
 
 Venue.initialState = {
-  numberOfTickets: 2,
+  numberOfTickets: 1,
 }
 
 export default Venue

@@ -2,11 +2,12 @@ import * as React from "react"
 import Row from "./row";
 
 interface VenueBodyProps {
+  numberOfTickets: number
   rows: number
   seatsPerRow: number
 }
 
-const VenueBody = ({ rows, seatsPerRow }: VenueBodyProps): React.ReactElement => {
+const VenueBody = ({ numberOfTickets, rows, seatsPerRow }: VenueBodyProps): React.ReactElement => {
   const rowComponents = Array.from(Array(rows).keys()).map(
     (row: number): React.ReactElement => {
       return (
@@ -14,6 +15,7 @@ const VenueBody = ({ rows, seatsPerRow }: VenueBodyProps): React.ReactElement =>
           key={`venue-row-${row}`}
           rowNumber={row}
           seatsPerRow={seatsPerRow}
+          numberOfTickets={numberOfTickets}
         />
       )
     }

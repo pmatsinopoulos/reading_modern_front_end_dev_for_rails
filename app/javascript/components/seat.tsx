@@ -1,24 +1,25 @@
 import * as React from "react"
 
 interface SeatProps {
+  seatClicked: (seatNumber: number) => void
   seatNumber: number
-  initialState: string
+  status: string
 }
 
-const Seat = ({ seatNumber, initialState }: SeatProps): React.ReactElement => {
-  const [state, setState] = React.useState(initialState)
-
-  const changeState = (): void => {
-    if (state === "held") {
-      setState("unsold")
-    } else {
-      setState("held")
-    }
+const Seat = ({
+  seatClicked,
+  seatNumber,
+  status,
+}: SeatProps): React.ReactElement => {
+  const onSeatClicked = (): void => {
+    seatClicked(seatNumber)
   }
 
   const stateDisplayClass = (): string => {
-    if (state === "held") {
+    if (status === "held") {
       return "bg-screen-500 held"
+    } else if (status === "invalid") {
+      return "bg-red-300 invalid"
     } else {
       return "bg-white hover:bg-blue-300 unsold"
     }
@@ -30,7 +31,7 @@ const Seat = ({ seatNumber, initialState }: SeatProps): React.ReactElement => {
     <td>
       <span
         className={`${cssClass} ${stateDisplayClass()}`}
-        onClick={changeState}>
+        onClick={onSeatClicked}>
         {seatNumber + 1}
       </span>
     </td>
