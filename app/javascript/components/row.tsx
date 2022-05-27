@@ -6,14 +6,14 @@ interface RowProps {
   seatsPerRow: number
 }
 
-const Row = (props: RowProps): React.ReactElement => {
-  const seatItems = Array.from(Array(props.seatsPerRow).keys()).map(
+const Row = ({ rowNumber, seatsPerRow }: RowProps): React.ReactElement => {
+  const seatItems = Array.from(Array(seatsPerRow).keys()).map(
     (i: number): React.ReactElement => {
       return <Seat key={`seat-${i}`} initialState="unsold" seatNumber={i} />
     }
   )
 
-  return <tr key={`seat-row-${props.rowNumber}`}>{seatItems}</tr>
+  return <tr key={`seat-row-${rowNumber}`}>{seatItems}</tr>
 }
 
 export default Row
