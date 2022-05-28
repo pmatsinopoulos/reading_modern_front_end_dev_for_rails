@@ -10,6 +10,7 @@
     "@tailwindcss/typography": "^0.5.2",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
+    "animate.css": "^4.1.1",
     "autoprefixer": "^10.4.4",
     "esbuild": "^0.14.36",
     "form-request-submit-polyfill": "^2.0.0",
@@ -37,7 +38,7 @@
   },
   "scripts": {
     "build:js": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css",
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css",
     "failure:js": "rm ./app/assets/builds/application.js && rm ./app/assets/builds/application.js.map",
     "dev": "tsc-watch --noClear -p tsconfig.json --onSuccess \"yarn build:js\" --onFailure \"yarn failure:js\""
   }
