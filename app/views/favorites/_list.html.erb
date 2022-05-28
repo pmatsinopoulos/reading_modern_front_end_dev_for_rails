@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "favorite-concerts" do %>
   <section class="my-4"
            data-controller="css"
-           data-css-css-class="hidden"
+           data-css-css-class="shrink"
            data-css-status-value="false">
     <div class="text-3xl font-bold">Favorite Concerts</div>
 
@@ -17,7 +17,7 @@
                     data: { 'css-flip-target': "elementToChange" }) %>
     </button>
 
-    <div data-css-target="elementToChange">
+    <div data-css-target="elementToChange" class="resizer">
       <div class="text-xl font-bold" id="no-favorites">
         <% if current_user.favorites.empty? %>
           No favorite concerts yet

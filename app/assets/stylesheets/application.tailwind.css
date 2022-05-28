@@ -30,3 +30,14 @@
 .blue-hover:hover {
   background-color: blue !important;
 }
+
+.resizer {
+  transition: all 1s ease-in-out;
+  max-height: 1000px;
+  overflow: hidden;
+}
+
+.resizer.shrink {
+  max-height: 0;
+}
+
