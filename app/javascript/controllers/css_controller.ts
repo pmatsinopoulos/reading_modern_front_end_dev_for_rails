@@ -3,18 +3,18 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="css"
 export default class CssController extends Controller {
   static targets = ["elementToChange"]
-  elementToChangeTarget: HTMLElement;
+  elementToChangeTarget: HTMLElement
 
   static values = {
     status: Boolean,
   }
-  statusValue: boolean;
+  statusValue: boolean
 
   static classes = ["css"]
   cssClasses: string[]
 
   statusValueChanged(): void {
-    this.updateCssClass();
+    this.updateCssClass()
   }
 
   toggle() {
