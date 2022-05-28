@@ -5,7 +5,7 @@
            data-css-status-value="false">
     <div class="text-3xl font-bold">Favorite Concerts</div>
 
-    <button class="<%= SimpleForm.button_class %> py-1 text-xl font-semibold"
+    <button class="<%= SimpleForm.button_class %> py-1 text-xl font-semibold blue-hover"
       data-controller="css-flip"
       data-css-flip-on-class="is-open"
       data-css-flip-off-class="is-closed"
@@ -13,7 +13,7 @@
       data-action="click->css#toggle click->css-flip#toggle"
       >
       <%= image_tag("chevron-right.svg", width: 25, height: 25,
-                    class: "inline mb-3",
+                    class: "inline mb-3 slow-transition",
                     data: { 'css-flip-target': "elementToChange" }) %>
     </button>
 
