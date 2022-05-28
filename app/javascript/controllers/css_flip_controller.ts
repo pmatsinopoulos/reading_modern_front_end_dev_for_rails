@@ -12,7 +12,7 @@ export default class CssFlipController extends Controller {
   statusValue: boolean
 
   toggle(): void {
-    console.debug("CSS Flip Controller::toggle()...")
+    console.debug("CSS Flip Controller::toggle(): **************")
     this.flipState()
   }
 
