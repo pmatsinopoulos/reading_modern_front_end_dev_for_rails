@@ -23,7 +23,9 @@ const VenueBody = ({ numberOfTickets, rows, seatsPerRow }: VenueBodyProps): Reac
 
   return (
     <table className="table" cellPadding={20}>
-      {rowComponents}
+      <tbody>
+        {rowComponents}
+      </tbody>
     </table>
   )
 }

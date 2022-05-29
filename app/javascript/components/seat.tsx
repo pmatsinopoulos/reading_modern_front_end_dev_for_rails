@@ -1,4 +1,5 @@
 import * as React from "react"
+import styled from "styled-components"
 
 interface SeatProps {
   seatClicked: (seatNumber: number) => void
@@ -15,27 +16,42 @@ const Seat = ({
     seatClicked(seatNumber)
   }
 
-  const stateDisplayClass = (): string => {
-    if (status === "held") {
-      return "bg-screen-500 held"
-    } else if (status === "invalid") {
-      return "bg-red-300 invalid"
-    } else {
-      return "bg-white hover:bg-blue-300 unsold"
-    }
-  }
-
-  const cssClass = "p-4 m-2 border-black border-4 text-lg"
-
   return (
     <td>
-      <span
-        className={`${cssClass} ${stateDisplayClass()}`}
-        onClick={onSeatClicked}>
+      <ButtonSquare status={status} onClick={onSeatClicked}>
         {seatNumber + 1}
-      </span>
+      </ButtonSquare>
     </td>
   )
 }
 
+const cssClass = "p-4 m-2 border-black border-4 text-lg"
+
 export default Seat
+
+// Styling
+
+const stateColor = (state: string): string => {
+  if (state === "unsold") {
+    return "white"
+  }
+  if (state === "held") {
+    return "green"
+  }
+  return "red"
+}
+
+interface SquareProps {
+  status: string
+  className?: string
+}
+
+const ButtonSquare = styled.span.attrs({
+  className: cssClass,
+})<SquareProps>`
+  background-color: ${({ status }) => stateColor(status)};
+  transition: all 1s ease-in-out;
+  &:hover {
+    background-color: ${({ status }) => status === "unsold" ? "lightblue" : stateColor(status)};
+  }
+`

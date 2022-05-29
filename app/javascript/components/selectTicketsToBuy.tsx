@@ -1,5 +1,6 @@
 import * as React from "react"
-import Venue, { VenueInitialState } from "./venue"
+import styled from "styled-components"
+import { VenueInitialState } from "./venue"
 
 interface SelectTicketsToBuyProps {
   seatsPerRow: number
@@ -12,8 +13,7 @@ const SelectTicketsToBuy = ({ seatsPerRow, setState, state }: SelectTicketsToBuy
     (optionValue: number): React.ReactElement => (
       <option
         key={`number-of-tickets-${optionValue}`}
-        value={optionValue + 1}
-        selected={state.numberOfTickets == optionValue + 1}>
+        value={optionValue + 1}>
         {optionValue + 1}
       </option>
     )
@@ -29,12 +29,20 @@ const SelectTicketsToBuy = ({ seatsPerRow, setState, state }: SelectTicketsToBuy
 
   return (
     <div>
-      <span className="header">How many tickets would you like?</span>
+      <Header>How many tickets would you like?</Header>
       <span className="select">
-        <select onChange={numberOfTicketsChanged}>{options}</select>
+        <select onChange={numberOfTicketsChanged} value={state.numberOfTickets}>{options}</select>
       </span>
     </div>
   )
 }
 
 export default SelectTicketsToBuy
+
+const Header = styled.span`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: red;
+`
