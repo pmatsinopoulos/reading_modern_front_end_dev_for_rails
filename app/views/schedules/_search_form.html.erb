@@ -1,0 +1,25 @@
+<%= turbo_frame_tag "search-from" do %>
+  <div data-controller="search"> <!-- Stimulus +SearchController+ attached here -->
+    <%= form_with(
+          url: concerts_url,
+          method: :get,
+          data: {
+            "turbo-frame": "search-results", # this is where the response from the server will go to
+            "search-target": "form", # we are declaring the +form+ as a +target+ of the Stimulus +SearchController+
+            action: "input->search#submit" # we catch the +input+ event and we send/call the Stimulus +SearchController#submit+ action
+          }
+        ) do %>
+      <div class="flex justify-center">
+        <div class="w-4/5">
+          <%= text_field_tag("query", "",
+                             placeholder: "Search concerts", type: "search",
+                             id: "search_query",
+                             data: { "search-target": "input" }, # the text input field is a +target+ for Stimulus +SearchController+
+                             class: "w-full px-3 py-2 border border-gray-400 rounded-lg") %>
+        </div>
+      </div>
+    <% end %>
+    <%= turbo_frame_tag "search-results" %>
+  </div>
+<% end %>
+

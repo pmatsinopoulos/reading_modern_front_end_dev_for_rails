@@ -12,3 +12,6 @@ application.register("css-flip", CssFlipController)
 
 import HelloController from "./hello_controller.ts"
 application.register("hello", HelloController)
+
+import SearchController from "./search_controller.ts"
+application.register("search", SearchController)
