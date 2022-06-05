@@ -38,7 +38,10 @@ const stateColor = (state: string): string => {
   if (state === "held") {
     return "green"
   }
-  return "red"
+  if (state === "purchased") {
+    return "red"
+  }
+  return "yellow"
 }
 
 interface SquareProps {

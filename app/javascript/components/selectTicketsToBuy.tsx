@@ -1,14 +1,13 @@
 import * as React from "react"
 import styled from "styled-components"
-import { VenueInitialState } from "./venue"
 
 interface SelectTicketsToBuyProps {
   seatsPerRow: number
-  setState: (VenueInitialState) => void
-  state: VenueInitialState
+  setTicketsToBuyCount: (number) => void
+  ticketsToBuyCount: number
 }
 
-const SelectTicketsToBuy = ({ seatsPerRow, setState, state }: SelectTicketsToBuyProps): React.ReactElement => {
+const SelectTicketsToBuy = ({ seatsPerRow, setTicketsToBuyCount, ticketsToBuyCount }: SelectTicketsToBuyProps): React.ReactElement => {
   const options = Array.from(Array(seatsPerRow).keys()).map(
     (optionValue: number): React.ReactElement => (
       <option
@@ -21,17 +20,14 @@ const SelectTicketsToBuy = ({ seatsPerRow, setState, state }: SelectTicketsToBuy
 
   const numberOfTicketsChanged = (event: React.SyntheticEvent) => {
     const target = event.target as HTMLSelectElement
-    setState({
-      ...state,
-      numberOfTickets: parseInt(target.value),
-    })
+    setTicketsToBuyCount(parseInt(target.value, 10))
   }
 
   return (
     <div>
       <Header>How many tickets would you like?</Header>
       <span className="select">
-        <select onChange={numberOfTicketsChanged} value={state.numberOfTickets}>{options}</select>
+        <select onChange={numberOfTicketsChanged} value={ticketsToBuyCount}>{options}</select>
       </span>
     </div>
   )

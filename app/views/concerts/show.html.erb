@@ -41,7 +41,10 @@
   <div class="px-5 py-4 m-2 my-4 w-40 text-center text-white transition-colors duration-150 bg-gray-800 rounded-lg focus:shadow-outline hover:bg-black">
     Clear Tickets
   </div>
-  <div id="react-element"></div>
+  <div id="react-element"
+    data-rows="<%= @concert.venue.rows %>"
+    data-seats-per-row="<%= @concert.venue.seats_per_row %>"
+    data-concert-id="<%= @concert.id %>"></div>
 </div>
 <div class="actions">
   <%= link_to("Edit", edit_concert_path(@concert)) %>

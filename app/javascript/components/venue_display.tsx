@@ -6,6 +6,9 @@ document.addEventListener("turbo:load", () => {
   if (document.getElementById("react-element")) {
     const container = document.getElementById("react-element")
     const root = createRoot(container)
-    root.render(<Venue rows={10} seatsPerRow={10} />)
+    const concertId = parseInt(container.dataset.concertId, 10)
+    const rows = parseInt(container.dataset.rows, 10)
+    const seatsPerRow = parseInt(container.dataset.seatsPerRow, 10)
+    root.render(<Venue concertId={concertId} rows={rows} seatsPerRow={seatsPerRow} />)
   }
 })
