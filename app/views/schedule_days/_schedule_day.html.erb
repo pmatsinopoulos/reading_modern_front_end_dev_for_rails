@@ -15,7 +15,7 @@
   </h2>
   <% if show %>
     <section data-css-target="elementToChange">
-      <% schedule_day.concerts.sort_by(&:start_time).each do |concert| %> <%= render(concert) %>
+      <% schedule_day.concerts.sort_by(&:start_time).each do |concert| %> <%= render(concert, user: current_user) %>
       <% end %>
     </section>
   <% end %>
