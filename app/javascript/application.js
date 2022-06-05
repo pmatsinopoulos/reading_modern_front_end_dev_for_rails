@@ -9,6 +9,8 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import "./components/venue_display"
+import "./channels"
+
 import "animate.css"
 
 document.addEventListener("turbo:before-stream-render", (event) => {
@@ -24,5 +26,3 @@ document.addEventListener("turbo:before-stream-render", (event) => {
     }
   }
 })
-
-import "./channels"
