@@ -25,3 +25,4 @@ document.addEventListener("turbo:before-stream-render", (event) => {
   }
 })
 
+import "./channels"
