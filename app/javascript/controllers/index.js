@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import CalendarController from "./calendar_controller.ts"
+application.register("calendar", CalendarController)
+
 import ConcertController from "./concert_controller.ts"
 application.register("concert", ConcertController)
 
