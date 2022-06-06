@@ -1,12 +1,14 @@
 import * as React from "react"
 import Row from "./row"
 import { VenueData } from "./venue"
+import { Subscription } from "@rails/actioncable"
 
 interface VenueBodyProps {
   concertId: number
   numberOfTickets: number
   rows: number
   seatsPerRow: number
+  subscription: Subscription
   venueData: VenueData
 }
 
@@ -15,6 +17,7 @@ const VenueBody = ({
   numberOfTickets,
   rows,
   seatsPerRow,
+  subscription,
   venueData,
 }: VenueBodyProps): React.ReactElement => {
   const rowComponents = Array.from(Array(rows).keys()).map(
@@ -26,6 +29,7 @@ const VenueBody = ({
           rowData={venueData[row]}
           rowNumber={row}
           seatsPerRow={seatsPerRow}
+          subscription={subscription}
           numberOfTickets={numberOfTickets}
         />
       )

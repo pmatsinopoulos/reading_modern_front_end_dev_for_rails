@@ -2,6 +2,7 @@ import * as React from "react"
 import Seat from "./seat"
 import { RowData } from "./venue"
 import { TicketData } from "./venue"
+import { Subscription } from "@rails/actioncable"
 
 interface RowProps {
   concertId: number
@@ -9,6 +10,7 @@ interface RowProps {
   rowData: RowData
   rowNumber: number
   seatsPerRow: number
+  subscription: Subscription
 }
 
 const Row = ({
@@ -17,6 +19,7 @@ const Row = ({
   rowData,
   rowNumber,
   seatsPerRow,
+  subscription,
 }: RowProps): React.ReactElement => {
   const initialState = () => {
     return Array.from(Array(seatsPerRow).keys()).map(
@@ -78,11 +81,6 @@ const Row = ({
       }
     })
   }
-
-  const csrfToken = (): string => {
-    return document.querySelector("[name='csrf-token']")?.getAttribute("content")
-  }
-
   const seatClicked = (seatNumber: number): void => {
     const validStatus = seatStatus(seatNumber)
     if (validStatus === "invalid" || validStatus === "purchased") {
@@ -91,19 +89,12 @@ const Row = ({
     const newSeatStatuses = updateSeatStatus(seatNumber)
     setSeatStatuses(newSeatStatuses)
 
-    fetch(`/shopping_carts`, {
-      method: "POST",
-      headers: {
-        "X-CSRF-Token": csrfToken(),
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        concertId,
-        row: rowNumber + 1,
-        seatNumber: seatNumber + 1,
-        status: newSeatStatuses[seatNumber],
-        ticketsToBuyCount: numberOfTickets,
-      }),
+    subscription.perform("added_to_cart", {
+      concertId: concertId,
+      row: rowNumber + 1,
+      seatNumber: seatNumber + 1,
+      status: newSeatStatuses[seatNumber],
+      ticketsToBuyCount: numberOfTickets
     })
   }
 

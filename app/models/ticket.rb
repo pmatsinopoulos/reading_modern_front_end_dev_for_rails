@@ -34,6 +34,23 @@ class Ticket < ApplicationRecord
     refunded: "refunded"
   }
 
+  class << self
+    def for_concert(concert_id)
+      return Ticket.all unless concert_id
+
+      Ticket.where(concert_id: concert_id)
+            .order(row: :asc, number: :asc)
+            .all
+            .reject(&:refunded?)
+    end
+
+    def grouped_for_concert(concert_id)
+      return [] unless concert_id
+
+      for_concert(concert_id).map(&:to_concert_h).group_by { |t| t[:row] }.values
+    end
+  end
+
   def toggle_for(user)
     return unless user
     return if self.user && self.user != user
