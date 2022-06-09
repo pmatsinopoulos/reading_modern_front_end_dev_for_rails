@@ -24,10 +24,7 @@ export default class CalendarController extends Controller {
       const show =
         everyDayUnselected ||
         calendarDayTarget.dataset.cssStatusValue === "true"
-      const schedule = document.getElementById(
-        calendarDayTarget.dataset.scheduleId
-      )
-      schedule.classList.toggle("hidden", !show)
+      this.toggleAssociatedConcerts(calendarDayTarget.dataset.scheduleAttribute, !show)
     })
   }
 
@@ -35,10 +32,16 @@ export default class CalendarController extends Controller {
   showAll(): void {
     this.calendarDayTargets.forEach((calendarDayTarget: HTMLElement) => {
       calendarDayTarget.dataset.cssStatusValue = "false"
-      const scheduleElement = document.getElementById(
-        calendarDayTarget.dataset.scheduleId
-      )
-      scheduleElement.classList.toggle("hidden", false)
+      this.toggleAssociatedConcerts(calendarDayTarget.dataset.scheduleAttribute, false)
     })
+  }
+
+  private
+
+  toggleAssociatedConcerts(attributeName: string, toggleValue: boolean): void {
+    document.querySelectorAll(`.concert[${attributeName}]`)
+      .forEach((element) => {
+        element.classList.toggle("hidden", toggleValue)
+      })
   }
 }

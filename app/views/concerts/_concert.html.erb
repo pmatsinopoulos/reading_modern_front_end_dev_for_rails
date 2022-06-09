@@ -1,4 +1,8 @@
-<%= turbo_frame_tag dom_id(concert) do %>
+<%= turbo_frame_tag dom_id(concert),
+                    class: "concert",
+                    data: { "sort-target": "sortElement",
+                            "sort-value": concert.start_time.to_i},
+                    "data-#{concert.start_time.by_example("2006-01-02")}": true do %>
   <article class="my-4"
            data-sold-out-data-target="concert"
            data-controller="concert"
