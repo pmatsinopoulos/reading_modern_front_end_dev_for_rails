@@ -1,29 +1,24 @@
 import * as React from "react"
-import { Subscription } from "@rails/actioncable"
 import styled from "styled-components"
-import { IsVenueContext, SubscriptionContext, VenueContext } from "./app"
+import { clearCart, useAppDispatch, useAppSelector } from "../contexts/venue_context"
 
 const Subtotal = (): React.ReactElement => {
-  const context = React.useContext<IsVenueContext>(VenueContext)
-  const subscription = React.useContext<Subscription>(SubscriptionContext)
+  const myTickets = useAppSelector((state) => state.myTickets)
+  const dispatch = useAppDispatch()
 
   const onClear = () => {
-    subscription.perform("removed_from_cart", {
-      concertId: context.state.concertId,
-      tickets: context.state.myTickets,
-    })
-    context.dispatch({ type: "clearHolds" })
+    dispatch(clearCart())
   }
 
   return (
     <>
       <Header>
         <span>Current Tickets Purchased: &nbsp;</span>
-        <span>{context.state.myTickets.length}</span>
+        <span>{myTickets.length}</span>
       </Header>
       <Header>
         <span>Current Tickets Cost: &nbsp;</span>
-        <span>{context.state.myTickets.length * 15}.00</span>
+        <span>{myTickets.length * 15}.00</span>
       </Header>
       <div className={buttonClass} onClick={onClear}>
         Clear Tickets

@@ -1,6 +1,6 @@
 import * as React from "react"
+import { useAppSelector } from "../contexts/venue_context"
 import Seat from "./seat"
-import { IsVenueContext, VenueContext } from "./app"
 
 interface RowProps {
   rowNumber: number
@@ -9,15 +9,15 @@ interface RowProps {
 const Row = ({
   rowNumber,
 }: RowProps): React.ReactElement => {
-  const context = React.useContext<IsVenueContext>(VenueContext)
+  const seatsPerRow = useAppSelector((state) => state.seatsPerRow)
 
   const initialState = () => {
-    return Array.from(Array(context.state.seatsPerRow).keys()).map(
+    return Array.from(Array(seatsPerRow).keys()).map(
       (r: number): string => "unsold"
     )
   }
 
-  const seatItems = Array.from(Array(context.state.seatsPerRow).keys()).map(
+  const seatItems = Array.from(Array(seatsPerRow).keys()).map(
     (i: number): React.ReactElement => {
       return (
         <Seat

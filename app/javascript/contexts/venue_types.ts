@@ -1,3 +1,5 @@
+import { AppProps } from "../components/app"
+
 interface TicketData {
   id: number
   number: number
@@ -40,9 +42,15 @@ interface SetTickets {
   tickets: TicketData[]
 }
 
+interface InitFromProps {
+  type: "initFromProps"
+  props: AppProps
+}
+
 type VenueAction =
   | ClearHolds
   | HoldTicket
+  | InitFromProps
   | SetTicketToBuy
   | SetTickets
   | UnholdTicket

@@ -1,11 +1,13 @@
 import * as React from "react"
+import { useAppSelector } from "../contexts/venue_context"
 import Row from "./row"
-import { IsVenueContext, VenueContext } from "./app"
 
 const VenueBody = (): React.ReactElement => {
-  const context = React.useContext<IsVenueContext>(VenueContext)
+  const {
+    rowCount
+  } = useAppSelector((state) => state)
 
-  const rowComponents = Array.from(Array(context.state.rowCount).keys()).map(
+  const rowComponents = Array.from(Array(rowCount).keys()).map(
     (row: number): React.ReactElement => {
       return (
         <Row

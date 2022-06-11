@@ -1,11 +1,15 @@
 import * as React from "react"
 import styled from "styled-components"
-import { IsVenueContext, VenueContext } from "./app"
+import { useAppDispatch, useAppSelector } from "../contexts/venue_context"
 
 const SelectTicketsToBuy = (): React.ReactElement => {
-  const context = React.useContext<IsVenueContext>(VenueContext)
+  const {
+    seatsPerRow,
+    ticketsToBuyCount
+  } = useAppSelector((state) => state)
+  const dispatch = useAppDispatch()
 
-  const options = Array.from(Array(context.state.seatsPerRow).keys()).map(
+  const options = Array.from(Array(seatsPerRow).keys()).map(
     (optionValue: number): React.ReactElement => (
       <option
         key={`number-of-tickets-${optionValue}`}
@@ -17,7 +21,7 @@ const SelectTicketsToBuy = (): React.ReactElement => {
 
   const numberOfTicketsChanged = (event: React.SyntheticEvent) => {
     const target = event.target as HTMLSelectElement
-    context.dispatch({
+    dispatch({
       type: "setTicketsToBuy",
       amount: parseInt(target.value, 10),
     })
@@ -27,7 +31,7 @@ const SelectTicketsToBuy = (): React.ReactElement => {
     <div>
       <Header>How many tickets would you like?</Header>
       <span className="select">
-        <select onChange={numberOfTicketsChanged} value={context.state.seatsPerRow}>{options}</select>
+        <select onChange={numberOfTicketsChanged} value={ticketsToBuyCount}>{options}</select>
       </span>
     </div>
   )
