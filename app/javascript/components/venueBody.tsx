@@ -1,36 +1,16 @@
 import * as React from "react"
 import Row from "./row"
-import { VenueData } from "./venue"
-import { Subscription } from "@rails/actioncable"
+import { IsVenueContext, VenueContext } from "./app"
 
-interface VenueBodyProps {
-  concertId: number
-  numberOfTickets: number
-  rows: number
-  seatsPerRow: number
-  subscription: Subscription
-  venueData: VenueData
-}
+const VenueBody = (): React.ReactElement => {
+  const context = React.useContext<IsVenueContext>(VenueContext)
 
-const VenueBody = ({
-  concertId,
-  numberOfTickets,
-  rows,
-  seatsPerRow,
-  subscription,
-  venueData,
-}: VenueBodyProps): React.ReactElement => {
-  const rowComponents = Array.from(Array(rows).keys()).map(
+  const rowComponents = Array.from(Array(context.state.rowCount).keys()).map(
     (row: number): React.ReactElement => {
       return (
         <Row
-          concertId={concertId}
           key={`venue-row-${row}`}
-          rowData={venueData[row]}
           rowNumber={row}
-          seatsPerRow={seatsPerRow}
-          subscription={subscription}
-          numberOfTickets={numberOfTickets}
         />
       )
     }

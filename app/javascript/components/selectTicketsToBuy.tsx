@@ -1,14 +1,11 @@
 import * as React from "react"
 import styled from "styled-components"
+import { IsVenueContext, VenueContext } from "./app"
 
-interface SelectTicketsToBuyProps {
-  seatsPerRow: number
-  setTicketsToBuyCount: (number) => void
-  ticketsToBuyCount: number
-}
+const SelectTicketsToBuy = (): React.ReactElement => {
+  const context = React.useContext<IsVenueContext>(VenueContext)
 
-const SelectTicketsToBuy = ({ seatsPerRow, setTicketsToBuyCount, ticketsToBuyCount }: SelectTicketsToBuyProps): React.ReactElement => {
-  const options = Array.from(Array(seatsPerRow).keys()).map(
+  const options = Array.from(Array(context.state.seatsPerRow).keys()).map(
     (optionValue: number): React.ReactElement => (
       <option
         key={`number-of-tickets-${optionValue}`}
@@ -20,14 +17,17 @@ const SelectTicketsToBuy = ({ seatsPerRow, setTicketsToBuyCount, ticketsToBuyCou
 
   const numberOfTicketsChanged = (event: React.SyntheticEvent) => {
     const target = event.target as HTMLSelectElement
-    setTicketsToBuyCount(parseInt(target.value, 10))
+    context.dispatch({
+      type: "setTicketsToBuy",
+      amount: parseInt(target.value, 10),
+    })
   }
 
   return (
     <div>
       <Header>How many tickets would you like?</Header>
       <span className="select">
-        <select onChange={numberOfTicketsChanged} value={ticketsToBuyCount}>{options}</select>
+        <select onChange={numberOfTicketsChanged} value={context.state.seatsPerRow}>{options}</select>
       </span>
     </div>
   )

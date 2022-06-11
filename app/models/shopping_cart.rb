@@ -27,4 +27,15 @@ class ShoppingCart < ApplicationRecord
     ).all
     tickets.update(status: status, user: user)
   end
+
+  def clear(concert_id:, tickets:)
+    tickets.each do |ticket|
+      db_ticket = Ticket.find_by(
+        row: ticket["row"],
+        number: ticket["number"],
+        concert_id: concert_id
+      )
+      db_ticket&.update(status: unsold)
+    end
+  end
 end

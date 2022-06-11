@@ -1,6 +1,6 @@
 import * as React from "react"
 import { createRoot } from "react-dom/client"
-import Venue from "./venue"
+import App from "./app"
 
 document.addEventListener("turbo:load", () => {
   if (document.getElementById("react-element")) {
@@ -9,6 +9,6 @@ document.addEventListener("turbo:load", () => {
     const concertId = parseInt(container.dataset.concertId, 10)
     const rows = parseInt(container.dataset.rows, 10)
     const seatsPerRow = parseInt(container.dataset.seatsPerRow, 10)
-    root.render(<Venue concertId={concertId} rows={rows} seatsPerRow={seatsPerRow} />)
+    root.render(<App concertId={concertId} rows={rows} seatsPerRow={seatsPerRow} />)
   }
 })

@@ -1,24 +1,68 @@
 import * as React from "react"
 import styled from "styled-components"
+import { IsVenueContext, SubscriptionContext, VenueContext } from "./app"
+import { TicketData } from "../contexts/venue_types"
+import { Subscription } from "@rails/actioncable"
 
 interface SeatProps {
-  seatClicked: (seatNumber: number) => void
+  rowNumber: number
   seatNumber: number
-  status: string
 }
 
 const Seat = ({
-  seatClicked,
+  rowNumber,
   seatNumber,
-  status,
 }: SeatProps): React.ReactElement => {
-  const onSeatClicked = (): void => {
-    seatClicked(seatNumber)
+  const context = React.useContext<IsVenueContext>(VenueContext)
+  const subscription = React.useContext<Subscription>(SubscriptionContext)
+
+  const seatMatch = (ticketList: TicketData[], exact = false): boolean => {
+    for (const heldTicket of ticketList) {
+      const rowMatch = heldTicket.row === rowNumber
+      const seatDiff = heldTicket.number - seatNumber
+      const diff = exact ? 1 : context.state.ticketsToBuyCount
+      const seatMatch = seatDiff >= 0 && seatDiff < diff
+      if (rowMatch && seatMatch) {
+        return true
+      }
+    }
+    return false
+  }
+
+  const currentStatus = (): string => {
+    if (seatMatch(context.state.otherTickets, true)) {
+      return "purchased"
+    }
+    if (seatMatch(context.state.myTickets, true)) {
+      return "held"
+    }
+    if (seatMatch(context.state.otherTickets) ||
+        seatMatch(context.state.myTickets) ||
+        seatNumber + context.state.ticketsToBuyCount - 1 > context.state.seatsPerRow) {
+      return "invalid"
+    }
+    return "unsold"
+  }
+
+  const onSeatChange = (): void => {
+    const status = currentStatus()
+    if (status === "invalid" || status === "purchased") {
+      return
+    }
+    const actionType = status === "unsold" ? "holdTicket" : "unholdTicket"
+    context.dispatch({ type: actionType, seatNumber, rowNumber })
+    subscription.perform("added_to_cart", {
+      concertId: context.state.concertId,
+      row: rowNumber,
+      seatNumber: seatNumber,
+      status: actionType === "holdTicket" ? "held" : "unsold",
+      ticketsToBuyCount: context.state.ticketsToBuyCount,
+    })
   }
 
   return (
     <td>
-      <ButtonSquare status={status} onClick={onSeatClicked}>
+      <ButtonSquare status={currentStatus()} onClick={onSeatChange}>
         {seatNumber + 1}
       </ButtonSquare>
     </td>

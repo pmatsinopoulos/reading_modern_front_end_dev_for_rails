@@ -49,6 +49,10 @@ class Ticket < ApplicationRecord
 
       for_concert(concert_id).map(&:to_concert_h).group_by { |t| t[:row] }.values
     end
+
+    def data_for_concert(concert_id)
+      for_concert(concert_id).select(&:unavailable?).map(&:to_concert_h)
+    end
   end
 
   def toggle_for(user)
@@ -64,5 +68,9 @@ class Ticket < ApplicationRecord
 
   def to_concert_h
     { id: id, row: row, number: number, status: status }
+  end
+
+  def unavailable?
+    held? || purchased?
   end
 end
