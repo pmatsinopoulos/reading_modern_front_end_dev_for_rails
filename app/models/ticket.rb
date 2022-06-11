@@ -39,9 +39,9 @@ class Ticket < ApplicationRecord
       return Ticket.all unless concert_id
 
       Ticket.where(concert_id: concert_id)
-            .order(row: :asc, number: :asc)
-            .all
-            .reject(&:refunded?)
+        .order(row: :asc, number: :asc)
+        .all
+        .reject(&:refunded?)
     end
 
     def grouped_for_concert(concert_id)
@@ -67,7 +67,7 @@ class Ticket < ApplicationRecord
   end
 
   def to_concert_h
-    { id: id, row: row, number: number, status: status }
+    {id: id, row: row, number: number, status: status}
   end
 
   def unavailable?

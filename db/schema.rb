@@ -17,20 +17,20 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_23_225534) do
   create_enum :enum_access, [
     "general",
     "members",
-    "vips",
+    "vips"
   ], force: :cascade
 
   create_enum :enum_ilk, [
     "concert",
     "meet_n_greet",
-    "battle",
+    "battle"
   ], force: :cascade
 
   create_enum :enum_status, [
     "unsold",
     "held",
     "purchased",
-    "refunded",
+    "refunded"
   ], force: :cascade
 
   create_table "bands", force: :cascade do |t|

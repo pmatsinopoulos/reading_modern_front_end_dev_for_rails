@@ -27,7 +27,7 @@ class Favorite < ApplicationRecord
       content: ApplicationController.render(
         :turbo_stream,
         partial: "favorites/create",
-        locals: { favorite: self, user: user }
+        locals: {favorite: self, user: user}
       )
     )
   end
@@ -38,7 +38,7 @@ class Favorite < ApplicationRecord
       content: ApplicationController.render(
         :turbo_stream,
         partial: "favorites/destroy",
-        locals: { favorite: self, user: user }
+        locals: {favorite: self, user: user}
       )
     )
   end
