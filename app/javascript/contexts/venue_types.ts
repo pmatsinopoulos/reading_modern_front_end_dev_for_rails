@@ -1,10 +1,16 @@
 import { AppProps } from "../components/app"
 
+type TicketStatus = 
+  | "unsold"
+  | "held"
+  | "purchased"
+  | "refunded"
+  | "invalid"
 interface TicketData {
   id: number
   number: number
   row: number
-  status: string
+  status: TicketStatus
 }
 
 interface VenueState {
@@ -55,4 +61,4 @@ type VenueAction =
   | SetTickets
   | UnholdTicket
 
-export { TicketData, VenueAction, VenueState }
+export { TicketData, TicketStatus, VenueAction, VenueState }

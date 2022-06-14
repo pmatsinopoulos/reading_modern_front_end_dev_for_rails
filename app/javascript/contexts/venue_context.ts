@@ -2,7 +2,7 @@ import { ThunkAction } from "redux-thunk"
 import { createConsumer, Subscription } from "@rails/actioncable"
 import { configureStore } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
-import { VenueState, VenueAction } from "./venue_types"
+import { TicketData, TicketStatus, VenueState, VenueAction } from "./venue_types"
 
 let subscription: Subscription
 
@@ -51,7 +51,7 @@ const venueReducer = (state: VenueState = initialState, action: VenueAction): Ve
     case "holdTicket": {
       const newTickets = Array.from(
         Array(state.ticketsToBuyCount).keys()
-      ).map((index) => {
+      ).map((index): TicketData => {
         return {
           id: 0,
           row: action.rowNumber,
@@ -103,7 +103,7 @@ const useAppDispatch = () => useDispatch<AppDispatch>()
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 const seatChange = (
-  status: string,
+  status: TicketStatus,
   rowNumber: number,
   seatNumber: number,
 ): VenueThunk => {

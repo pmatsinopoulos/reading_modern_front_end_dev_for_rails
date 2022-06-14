@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 import { seatChange, useAppDispatch, useAppSelector } from "../contexts/venue_context"
-import { TicketData } from "../contexts/venue_types"
+import { TicketData, TicketStatus } from "../contexts/venue_types"
 
 interface SeatProps {
   rowNumber: number
@@ -33,7 +33,7 @@ const Seat = ({
     return false
   }
 
-  const currentStatus = (): string => {
+  const currentStatus = (): TicketStatus => {
     if (seatMatch(otherTickets, true)) {
       return "purchased"
     }
@@ -49,7 +49,7 @@ const Seat = ({
   }
 
   const onSeatChange = (): void => {
-    const status = currentStatus()
+    const status: TicketStatus = currentStatus()
     if (status === "invalid" || status === "purchased") {
       return
     }
@@ -71,7 +71,7 @@ export default Seat
 
 // Styling
 
-const stateColor = (state: string): string => {
+const stateColor = (state: TicketStatus): string => {
   if (state === "unsold") {
     return "white"
   }
@@ -85,7 +85,7 @@ const stateColor = (state: string): string => {
 }
 
 interface SquareProps {
-  status: string
+  status: TicketStatus
   className?: string
 }
 
