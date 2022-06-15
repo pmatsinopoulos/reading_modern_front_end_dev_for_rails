@@ -1,11 +1,13 @@
 import { AppProps } from "../components/app"
 
-type TicketStatus = 
-  | "unsold"
-  | "held"
-  | "purchased"
-  | "refunded"
-  | "invalid"
+enum TicketStatus {
+  Unsold,
+  Held,
+  Purchased,
+  Refunded,
+  Invalid
+}
+
 interface TicketData {
   id: number
   number: number

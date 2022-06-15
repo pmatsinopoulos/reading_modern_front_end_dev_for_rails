@@ -56,7 +56,7 @@ const venueReducer = (state: VenueState = initialState, action: VenueAction): Ve
           id: 0,
           row: action.rowNumber,
           number: action.seatNumber + index,
-          status: "held",
+          status: TicketStatus.Held,
         }
       })
       return {
@@ -75,8 +75,8 @@ const venueReducer = (state: VenueState = initialState, action: VenueAction): Ve
     case "setTickets":
       return {
         ...state,
-        otherTickets: action.tickets.filter((ticket) => ticket.status === "purchased"),
-        myTickets: action.tickets.filter((ticket) => ticket.status === "held"),
+        otherTickets: action.tickets.filter((ticket) => ticket.status === TicketStatus.Purchased),
+        myTickets: action.tickets.filter((ticket) => ticket.status === TicketStatus.Held),
       }
     case "setTicketsToBuy":
       return { ...state, ticketsToBuyCount: action.amount }
@@ -108,7 +108,7 @@ const seatChange = (
   seatNumber: number,
 ): VenueThunk => {
   return async (dispatch, getState) => {
-    const actionType = status === "unsold" ? "holdTicket" : "unholdTicket"
+    const actionType = status === TicketStatus.Unsold ? "holdTicket" : "unholdTicket"
     await subscription.perform("added_to_cart", {
       concertId: getState().concertId,
       row: rowNumber,

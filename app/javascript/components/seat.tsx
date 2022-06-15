@@ -35,22 +35,22 @@ const Seat = ({
 
   const currentStatus = (): TicketStatus => {
     if (seatMatch(otherTickets, true)) {
-      return "purchased"
+      return TicketStatus.Purchased
     }
     if (seatMatch(myTickets, true)) {
-      return "held"
+      return TicketStatus.Held
     }
     if (seatMatch(otherTickets) ||
         seatMatch(myTickets) ||
         seatNumber + ticketsToBuyCount - 1 > seatsPerRow) {
-      return "invalid"
+      return TicketStatus.Invalid
     }
-    return "unsold"
+    return TicketStatus.Unsold
   }
 
   const onSeatChange = (): void => {
     const status: TicketStatus = currentStatus()
-    if (status === "invalid" || status === "purchased") {
+    if (status === TicketStatus.Invalid || status === TicketStatus.Purchased) {
       return
     }
     dispatch(seatChange(status, rowNumber, seatNumber))
@@ -72,13 +72,13 @@ export default Seat
 // Styling
 
 const stateColor = (state: TicketStatus): string => {
-  if (state === "unsold") {
+  if (state === TicketStatus.Unsold) {
     return "white"
   }
-  if (state === "held") {
+  if (state === TicketStatus.Held) {
     return "green"
   }
-  if (state === "purchased") {
+  if (state === TicketStatus.Purchased) {
     return "red"
   }
   return "yellow"
@@ -95,6 +95,6 @@ const ButtonSquare = styled.span.attrs({
   background-color: ${({ status }) => stateColor(status)};
   transition: all 1s ease-in-out;
   &:hover {
-    background-color: ${({ status }) => status === "unsold" ? "lightblue" : stateColor(status)};
+    background-color: ${({ status }) => status === TicketStatus.Unsold ? "lightblue" : stateColor(status)};
   }
 `
