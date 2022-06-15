@@ -1,11 +1,11 @@
 import { AppProps } from "../components/app"
 
 enum TicketStatus {
-  Unsold,
-  Held,
-  Purchased,
-  Refunded,
-  Invalid
+  Unsold = "unsold",
+  Held = "held",
+  Purchased = "purchasaed",
+  Refunded = "refunded",
+  Invalid = "invalid",
 }
 
 interface TicketData {
