@@ -45,6 +45,6 @@ export default class SortController extends Controller {
   }
 
   sortValue(element: HTMLElement): number {
-    return parseInt(element.dataset.sortValue, 10)
+    return parseInt(element.dataset.sortValue || "0", 10)
   }
 }

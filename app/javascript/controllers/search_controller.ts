@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import "form-request-submit-polyfill"
+import { debounce } from "../utils/debounce"
 
 export default class SearchController extends Controller {
   static targets = ["form", "input", "results"]
@@ -8,7 +9,7 @@ export default class SearchController extends Controller {
   resultsTarget: HTMLElement
 
   submit(): void {
-    this.debounce(this.basicSubmit.bind(this))()
+    debounce(this.basicSubmit.bind(this))()
   }
 
   resetOnOutsideClick(event: Event): void {
@@ -18,18 +19,6 @@ export default class SearchController extends Controller {
   }
 
   private
-
-  debounce(functionToDebounce: (...args: any[]) => any, wait = 300) {
-    let timeOutId = null
-
-    return (...args: any[]) => {
-      clearTimeout(timeOutId)
-      timeOutId = setTimeout(() => {
-        timeOutId = null
-        functionToDebounce(...args)
-      }, wait)
-    }
-  }
 
   basicSubmit(): void {
     if (this.inputTarget.value === "") {

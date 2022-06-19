@@ -22,7 +22,7 @@ const initSubscription = (): void => {
   }
 }
 
-type VenueThunk = ThunkAction<void, VenueState, null, VenueAction>
+type VenueThunk = ThunkAction<void, VenueState, void, VenueAction>
 
 const fetchData = (): VenueThunk => {
   return async (dispatch, getState) => {

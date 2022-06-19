@@ -27,7 +27,7 @@ export default class SoldOutDataController extends Controller {
   updateData(soldOutConcertIds: number[]): void {
     this.concertTargets.forEach((concertElement: HTMLElement) => {
       concertElement.dataset.concertSoldOutValue =
-        soldOutConcertIds.includes(parseInt(concertElement.dataset.concertIdValue, 10))
+        soldOutConcertIds.includes(parseInt(concertElement.dataset.concertIdValue || "0", 10))
           .toString()
     })
   }

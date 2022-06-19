@@ -38,7 +38,10 @@ export default class CalendarController extends Controller {
 
   private
 
-  toggleAssociatedConcerts(attributeName: string, toggleValue: boolean): void {
+  toggleAssociatedConcerts(attributeName: string | undefined, toggleValue: boolean): void {
+    if (!attributeName) {
+      return
+    }
     document.querySelectorAll(`.concert[${attributeName}]`)
       .forEach((element) => {
         element.classList.toggle("hidden", toggleValue)
